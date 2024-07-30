@@ -70,7 +70,7 @@ Moreover, i add **5** vision models in [backbones](./models/backbones). the **tr
 
 # Train Homemade dataset
 😎😎😎
-You can write a data reader in the **Pytorch** style, which inherits the **Dataset** class and puts it in [datasets](./datasets). 
+You can write a data reader in the **Pytorch** style, which inherits the **Dataset** class and puts it in [datasets](./data). 
 Accordingly, you also need to modify the configuration file [yamls](yamls).
 
 
