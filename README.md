@@ -62,7 +62,7 @@ Just
 python main.py --opt ./yamls/XXX/ --batch_size 12 --num_epochs 24
 ```
 
-💥💥If you want to train your own model, jusat change the cfg files from [yamls](./yamls/) as your want
+💥💥If you want to train your model, just change the cfg files from [yamls](./yamls/) as your want
 
 
 Moreover, i add **5** vision models in [backbones](./models/backbones). the **train&eval engines** can be found in [engines](engines), which include  
