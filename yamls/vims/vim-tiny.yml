@@ -1,0 +1,81 @@
+name: vim
+model_type: VisionMamba
+num_gpu: 1
+manual_seed: 42
+
+# dataset and data loader settings
+datasets:
+  name: cifar100
+  data_type: CiFar100
+  train:
+    root: './data/datasets/cifar100'
+    mean: [0.485, 0.456, 0.406]
+    std: [0.229, 0.224, 0.225]
+    gt_size: 224
+    data_type: 'Train'
+
+  val:
+    root: './data/datasets/cifar100'
+    mean: [0.485, 0.456, 0.406]
+    std: [0.229, 0.224, 0.225]
+    gt_size: 224
+    data_type: 'Test'
+
+#network structures
+backbone:
+  model_cfg:
+    img_size: 224
+    patch_size: 16
+    stride: 16
+    embed_dim: 192
+    depth: 24
+    num_classes: 100
+    rms_norm: True
+    fused_add_norm: True
+    final_pool_type: 'mean'
+    if_abs_pos_embed: True
+    bimamba_type: "v2"
+    if_cls_token: True
+    if_divide_out: True
+    use_middle_cls_token: True
+  ckpt_path: './models/pretrained/vims/vim_t_midclstok_76p1acc.pth'
+
+
+# training settings
+train:
+  name: train
+  engine_type: Trainer
+  resume: " "
+  optimizer:
+    name: 'adamw' #adam,adamw,nadam,adamax,adadelta,adagrad,rmsprop,adabelif,nadamw,radam
+    lr: 0.00005
+    weight_decay: 0.005
+    eps: 0.00000008
+  lr_schedular:
+    name: 'cosine' #cosine,multistep,poly,tanh
+    t_initial: 3
+    lr_min: 0.00001
+    k_decay: 1.0
+    cycle_mul: 1.
+    cycle_decay: 1.
+    cycle_limit: 1.
+    warmup_t: 0.
+    warmup_lr_init: 0.000001
+    noise_pct: 0.67
+    noise_std: 1.0
+    noise_seed: 42
+  criterion:
+    name: 'smooth' #bce,smooth,ce
+    reduction: 'mean'
+
+
+# validation settings
+val:
+  name: 'eval'
+  engine_type: 'Evaluator'
+  metric:
+    name: 'topk'
+
+#save checkpoint
+save:
+
