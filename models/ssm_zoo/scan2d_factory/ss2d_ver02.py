@@ -331,7 +331,7 @@ class SS2Dv2:
         Cs = Cs.to(xs.dtype)
         Bs = Bs.repeat(1,_D,1,1)
         Cs = Cs.repeat(1,_D,1,1)
-        ys = selective_scan(xs,dts,As,Bs,Cs,Ds,delta_bias=dt_bias,z=None).view(_B,2,-1,_L)#bh,2,d_in,w
+        ys = selective_scan(xs,dts,As,Bs,Cs,Ds,delta_bias=delta_bias,z=None).view(_B,2,-1,_L)#bh,2,d_in,w
         assert ys.dtype==torch.float
         return ys
 
